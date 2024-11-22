@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Validation Example</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Input Data Validation Form</h2>
+
+    <form id="validationForm" onsubmit="return validateForm()">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <span id="nameError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+            <span id="emailError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age">
+            <span id="ageError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function validateForm() {
+            
+            document.getElementById("nameError").textContent = '';
+            document.getElementById("emailError").textContent = '';
+            document.getElementById("ageError").textContent = '';
+
+            let isValid = true;
+
+            
+            let name = document.getElementById("name").value;
+            if (name.trim() === "") {
+                document.getElementById("nameError").textContent = "Name is required.";
+                isValid = false;
+            }
+
+            
+            let email = document.getElementById("email").value;
+            let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!email.match(emailPattern)) {
+                document.getElementById("emailError").textContent = "Please enter a valid email address.";
+                isValid = false;
+            }
+
+            
+            let age = document.getElementById("age").value;
+            if (age < 18 || isNaN(age)) {
+                document.getElementById("ageError").textContent = "Age must be a number greater than or equal to 18.";
+                isValid = false;
+            }
+
+          
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>
